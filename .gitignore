@@ -1,0 +1,12 @@
+node_modules
+.vscode/launch.json
+.vscode/settings.json
+.idea/
+platforms
+/hooks
+app/**/*.js
+*.js.map
+*.css
+app/config/**/*.json
+.cloud/*
+vendor/*
