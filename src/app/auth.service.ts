@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, Response } from "@angular/http";
 import { Store, select } from "@ngrx/store";
 import { Observable, of } from 'rxjs';
 import { map, tap, switchMap, flatMap } from "rxjs/operators";
@@ -22,13 +21,6 @@ export class AuthService {
 		private store: Store<ApplicationState>,
 		private router: RouterExtensions,
 		private http: HttpClient) {
-
-		console.log('AUTH SERVICE INITIALIZING!');
-		this.store.select(getAuthentication)
-			.pipe(
-				tap(auth => console.log('AUTH SUB TRIGGERED (AUTH SERVICE)'))
-			)
-			.subscribe();
 	}
 
 	validateAuthentication(data: AuthenticationData) {
@@ -89,19 +81,22 @@ export class AuthService {
 	getAccessToken(_code: string): Observable<AuthenticationReply> {
 		return this.http.get('https://jsonplaceholder.typicode.com/todos/1')
 			.pipe(
-				map(google => ({
-					data: {
-						access_token: 'slkjdfoiuwoeiurlsldjflsj======123',
-						token_type: 'token',
-						expires_in: '3600',
-						refresh_token: 'adfsaREFRESHTOKENkjlsjsd-------123'
-					}
-				})),
-				// tap(_ => console.log('REMOTE CALL HAPPENED!'))
+				map(mock => this.stubAccessToken()),
 			);
 	}
 
 	refreshAccessToken(token: string): Observable<AuthenticationReply> {
-		return this.getAccessToken(token);
+		return of(this.stubAccessToken());
+	}
+
+	stubAccessToken(): AuthenticationReply {
+		return {
+			data: {
+				access_token: 'slkjdfoiuwoeiurlsldjflsj======123',
+				token_type: 'token',
+				expires_in: '3600',
+				refresh_token: 'adfsaREFRESHTOKENkjlsjsd-------123'
+			}
+		}
 	}
 }

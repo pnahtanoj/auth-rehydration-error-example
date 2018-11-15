@@ -18,12 +18,6 @@ import { EffectsModule } from "@ngrx/effects";
 import { AuthenticationEffects } from "./store/authentication.effects";
 import { AuthInterceptor } from "./auth/auth.interceptor";
 
-// Uncomment and add to NgModule imports if you need to use two-way binding
-// import { NativeScriptFormsModule } from "nativescript-angular/forms";
-
-// Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
-// import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
-
 const localStorage = require("nativescript-localstorage");
 
 const localStorageSyncConfig = {

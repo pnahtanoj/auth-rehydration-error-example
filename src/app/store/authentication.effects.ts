@@ -16,13 +16,7 @@ export class AuthenticationEffects {
 		.ofType(actions.AUTHENTICATE)
 		.pipe(
 			tap(c => console.log('AUTHENTICATE')),
-			switchMap((action: actions.Authenticate) =>
-				this.auth.getAccessToken(action.payload).pipe(
-					tap(c => console.log('AUTHENTICATE (AFTER)')),
-					tap((data: AuthenticationReply) => console.log('LOGIN DATA', data)),
-					map((data: AuthenticationReply) => new actions.AuthenticationSuccess(data))
-					// catchError(error => new actions.AuthenticationError(error))
-				)),
+			map((data: AuthenticationReply) => new actions.AuthenticationSuccess(this.auth.stubAccessToken()))
 		);
 
 	@Effect({
